@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MainView from './views/mainView.vue';
+import "@/assets/styles.scss";
 </script>
 
 <template>
