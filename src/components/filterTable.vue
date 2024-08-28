@@ -137,20 +137,30 @@ const toggleDropdown = () => {
 };
 const filteredData = ref(products.value)
 
+interface Product {
+  [key: string]: any;
+}
+
+interface Filter {
+  field: keyof Product;
+}
+
 const searchData = () => {
   if (!searchQuery.value) {
     return filteredData.value = products.value;
   }
-  
-  return filteredData.value = products.value.filter(item => {
-    return selectedFilter.value.some(filter => {
+
+  filteredData.value = products.value.filter((item: Product) => {
+    return selectedFilter.value.some((filter: Filter) => {
       const fieldValue = item[filter.field];
-      return fieldValue !== undefined &&
-             fieldValue.toString().toLowerCase().includes(searchQuery.value.toString().toLowerCase());
+      return (
+        fieldValue !== undefined &&
+        fieldValue !== null && 
+        fieldValue.toString().toLowerCase().includes(searchQuery.value.toString().toLowerCase())
+      );
     });
   });
 };
-
 
 const searchQuery = ref('')
 
